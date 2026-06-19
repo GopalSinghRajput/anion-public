@@ -452,6 +452,47 @@ Context exploration across workspace, memory, and local activity.
 </tr>
 </table>
 
+### 🧑‍💻 Terminal Screenshots
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/term1.png" alt="Anion terminal screenshot 1" />
+<br />
+<strong>Terminal Screenshot 1</strong>
+</td>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/term2.png" alt="Anion terminal screenshot 2" />
+<br />
+<strong>Terminal Screenshot 2</strong>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/term3.png" alt="Anion terminal screenshot 3" />
+<br />
+<strong>Terminal Screenshot 3</strong>
+</td>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/term4.png" alt="Anion terminal screenshot 4" />
+<br />
+<strong>Terminal Screenshot 4</strong>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/term5.png" alt="Anion terminal screenshot 5" />
+<br />
+<strong>Terminal Screenshot 5</strong>
+</td>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/term6.png" alt="Anion terminal screenshot 6" />
+<br />
+<strong>Terminal Screenshot 6</strong>
+</td>
+</tr>
+</table>
+
 ---
 
 ## 🛠️ Tech Stack
@@ -649,7 +690,7 @@ Early beta is intended for Linux users, developers, terminal-heavy users, local 
 
 <br />
 
-<a href="YOUR_REAL_BETA_FORM_LINK">
+<a href="https://forms.gle/vLVCvox5mjny3VQSA">
   <strong>Request Beta Access →</strong>
 </a>
 

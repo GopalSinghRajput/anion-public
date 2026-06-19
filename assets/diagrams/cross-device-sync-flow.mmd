@@ -1,0 +1,10 @@
+flowchart LR
+    A[Linux Device A] --> Discovery[LAN Discovery - UDP 5354]
+    B[Linux Device B] --> Discovery
+    Discovery --> Pairing[6-Digit PIN Pairing]
+    Pairing --> KeyExchange[Key Exchange]
+    KeyExchange --> Crypto["NaCl Curve25519 Encrypted Channel"]
+    Crypto --> Sync[Context Sync / Resume Flow]
+    Sync --> Conflict{Conflict?}
+    Conflict -->|Yes| Modal[3-Way Merge Modal]
+    Conflict -->|No| Applied[State Applied]

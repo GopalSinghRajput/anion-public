@@ -1,0 +1,16 @@
+flowchart TD
+    Input[User Input] --> Redactor[Privacy Redactor]
+    Redactor -->|Safe for Cloud| Cloud[Cloud Model via Ollama]
+    Redactor -->|Contains PII/Sensitive| Local[Local Model Only]
+    Cloud --> Agent[ARIA Agent]
+    Local --> Agent
+    Agent --> ToolCall{Tool Call?}
+    ToolCall -->|No| Response[Text Response]
+    ToolCall -->|Yes| Allowlist{In TOOL_ALLOWLIST?}
+    Allowlist -->|No| Reject[Rejected]
+    Allowlist -->|Yes| RiskCheck{Risk Tier?}
+    RiskCheck -->|Low/Medium| Execute[Execute Tool]
+    RiskCheck -->|High| Approval[Request User Approval]
+    Approval -->|Approved| Execute
+    Approval -->|Denied| Cancelled[Action Cancelled]
+    Execute --> Sandbox["RLIMIT Sandbox"]

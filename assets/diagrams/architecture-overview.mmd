@@ -1,0 +1,13 @@
+flowchart TD
+    A[Linux Desktop] --> B[systemd User Services]
+    B --> C[Anion Python Backend]
+    C --> D[Context Engine]
+    C --> E[Memory Layer]
+    C --> F[ARIA Agent]
+    C --> G[Terminal Intelligence]
+    F --> H[Tool Allowlist + Guardrails]
+    C --> I["Local HTTP/SSE Bridge (127.0.0.1:9120)"]
+    I --> J[Electron / React Anion Shell]
+    C --> K[Ollama Local Models]
+    C --> L[FUSE Semantic FS]
+    C --> M[Cross-Device Sync]

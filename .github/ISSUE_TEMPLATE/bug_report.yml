@@ -1,0 +1,117 @@
+name: 🐛 Bug Report
+description: Report a bug in Anion
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out the details below.
+        
+        **Before submitting**, please run `./scripts/anion doctor` and include the output.
+
+  - type: input
+    id: distro
+    attributes:
+      label: Linux Distribution
+      description: Which Linux distro and version are you running?
+      placeholder: "e.g., Ubuntu 24.04 LTS"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: desktop
+    attributes:
+      label: Desktop Environment
+      description: Which window manager / desktop environment?
+      options:
+        - X11 (GNOME, KDE, XFCE, etc.)
+        - Sway
+        - i3
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Architecture
+      options:
+        - x86_64 (amd64)
+        - aarch64 (arm64)
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install_method
+    attributes:
+      label: Install Method
+      options:
+        - .deb package
+        - AppImage
+        - From source
+    validations:
+      required: true
+
+  - type: input
+    id: anion_version
+    attributes:
+      label: Anion Version
+      placeholder: "e.g., 0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ollama_status
+    attributes:
+      label: Ollama Status
+      description: Is Ollama running?
+      options:
+        - Running and healthy
+        - Running but errors
+        - Not installed
+        - Not running
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the bug
+      placeholder: |
+        1. Start Anion with `./scripts/anion up`
+        2. Open the desktop shell
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Output from `./scripts/anion doctor` and relevant logs
+      render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots

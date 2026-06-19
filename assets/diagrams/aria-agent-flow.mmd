@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant U as User
+    participant UI as Anion Shell
+    participant A as ARIA Agent
+    participant G as Guardrails
+    participant T as Approved Tool
+    participant O as Ollama
+
+    U->>UI: Ask request
+    UI->>A: Send prompt + context
+    A->>G: Check privacy and risk
+    G-->>A: Allowed / approval required
+    A->>O: Reason over request
+    O-->>A: Tool plan
+    A->>T: Execute approved tool
+    T-->>A: Tool result
+    A-->>UI: Final answer or approval prompt

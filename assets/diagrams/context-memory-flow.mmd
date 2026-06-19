@@ -1,0 +1,9 @@
+flowchart TD
+    Desktop[Desktop State] --> Context[Context Engine]
+    Terminal[Terminal Activity] --> Context
+    Files[File Events / Pinned Files] --> Context
+    Context --> Memory[Local Memory Store]
+    Memory --> ARIA[ARIA Assistant]
+    Context --> UI[Anion Shell]
+    Memory --> Search[Semantic Search]
+    Search --> Ranking[7-Factor Ranking]

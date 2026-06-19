@@ -1,0 +1,14 @@
+flowchart TD
+    Input[User Command] --> Scanner[Risk Pattern Scanner]
+    Scanner -->|Safe| Execute[Execute Command]
+    Scanner -->|Destructive| Warn[Display Warning]
+    Warn --> Confirm{User Confirms?}
+    Confirm -->|Yes| Execute
+    Confirm -->|No| Cancel[Cancel]
+    Execute --> Result{Exit Code}
+    Result -->|Error| Recovery[Recovery Engine]
+    Recovery --> Rules{Pattern Match?}
+    Rules -->|Yes| InstantFix[Instant Fix Suggestion]
+    Rules -->|No| LLM[LLM Diagnosis]
+    Result -->|Success| History[SQLite History]
+    Execute --> History

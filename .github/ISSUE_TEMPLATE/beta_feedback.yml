@@ -1,0 +1,73 @@
+name: 💬 Beta Feedback
+description: Share your experience using Anion during the beta
+title: "[Feedback]: "
+labels: ["feedback", "beta"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for trying Anion! Your feedback helps shape the product.
+
+  - type: textarea
+    id: worked
+    attributes:
+      label: What worked well?
+      description: What features or experiences stood out positively?
+    validations:
+      required: true
+
+  - type: textarea
+    id: confusing
+    attributes:
+      label: What was confusing?
+      description: Any parts of the setup, UI, or workflow that were unclear?
+
+  - type: dropdown
+    id: useful_feature
+    attributes:
+      label: Most useful feature
+      options:
+        - ARIA Assistant
+        - Terminal Intelligence
+        - Desktop Context / Memory
+        - Cross-Device Sync
+        - Brain Visualization
+        - Widget Dashboard
+        - Other
+
+  - type: dropdown
+    id: setup_difficulty
+    attributes:
+      label: Setup difficulty
+      options:
+        - Very easy
+        - Easy
+        - Moderate
+        - Difficult
+        - Very difficult
+    validations:
+      required: true
+
+  - type: dropdown
+    id: performance
+    attributes:
+      label: Performance
+      description: How did Anion perform on your system?
+      options:
+        - Excellent — fast and responsive
+        - Good — minor delays
+        - Acceptable — noticeable latency
+        - Poor — significant slowdowns
+        - Unusable — system became unresponsive
+
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy concerns
+      description: Any concerns about how Anion handles your data?
+
+  - type: textarea
+    id: suggestions
+    attributes:
+      label: Suggestions
+      description: What would you improve or add?

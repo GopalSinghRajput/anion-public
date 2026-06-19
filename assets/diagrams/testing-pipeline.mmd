@@ -1,0 +1,15 @@
+flowchart TD
+    Gate["anion test gate"] --> Full["Full Test Suite (742+ tests)"]
+    Gate --> Manifest[Manifest Validation]
+    Gate --> Import[Import Checks]
+    Gate --> Doctor[Doctor Health Check]
+    Full --> Security[Security Scans]
+    Security --> SAST["SAST (Bandit)"]
+    Security --> SCA["SCA (pip-audit)"]
+    Security --> Secrets[Secret Scan]
+    Security --> DAST["DAST (15 probes)"]
+    Full --> Chaos[Chaos Tests]
+    Full --> Soak["Soak Tests (24h)"]
+    Gate --> Decision{All Pass?}
+    Decision -->|Yes| Ready["READY (exit 0)"]
+    Decision -->|No| Blocked["BLOCKED (exit 3)"]

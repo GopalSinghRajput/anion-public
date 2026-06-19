@@ -6,108 +6,295 @@
 
 # 🧠 Anion
 
-**A local AI operating layer for the Linux desktop.**
+### A local AI operating layer for the Linux desktop.
 
 <br />
 
-[![Linux](https://img.shields.io/badge/Linux-only-00D1FF?style=for-the-badge&logo=linux&logoColor=white)](docs/INSTALL_LINUX.md)
+[![Linux](https://img.shields.io/badge/Linux-only-00D1FF?style=for-the-badge\&logo=linux\&logoColor=white)](docs/INSTALL_LINUX.md)
 [![Status](https://img.shields.io/badge/status-private_beta-8B5CF6?style=for-the-badge)](#-early-beta)
-[![Local First](https://img.shields.io/badge/local--first-privacy-10B981?style=for-the-badge&logo=shieldsdotio&logoColor=white)](PRIVACY.md)
+[![Local First](https://img.shields.io/badge/local--first-privacy-10B981?style=for-the-badge)](PRIVACY.md)
+[![AI Infra](https://img.shields.io/badge/AI-infrastructure-111827?style=for-the-badge)](#-why-this-was-technically-interesting)
 [![Tests](https://img.shields.io/badge/tests-742+-F59E0B?style=for-the-badge)](docs/TESTING_AND_QA.md)
 
 <br />
 
-<em>Privacy-first · On-device AI · Agentic assistant · E2E encrypted sync</em>
+**Linux-native · Local-first · ARIA-powered · Terminal-aware · Privacy-conscious**
 
 <br />
 
-[Architecture](docs/ARCHITECTURE.md) · [Features](docs/FEATURE_BREAKDOWN.md) · [Roadmap](docs/ROADMAP.md) · [Install](docs/INSTALL_LINUX.md) · [FAQ](docs/FAQ.md)
+<a href="docs/ARCHITECTURE.md"><strong>Architecture</strong></a>
+· <a href="docs/FEATURE_BREAKDOWN.md">Features</a>
+· <a href="docs/ARIA_AGENT.md">ARIA</a>
+· <a href="docs/TESTING_AND_QA.md">Testing</a>
+· <a href="docs/ROADMAP.md">Roadmap</a>
+· <a href="#-early-beta">Beta Access</a>
 
 <br />
+<br />
 
----
-
-> ⚠️ This is a **public documentation repository**. Source code is private during beta & security hardening.
-
----
+> **Public documentation repository**
+> This repository documents Anion’s architecture, product design, features, screenshots, diagrams, release notes, and beta access.
+> The production source code is private during beta and security hardening.
 
 </div>
 
-<br />
+---
 
-## 💡 What is Anion?
+## 🎯 Recruiter Snapshot
 
-Anion is a privacy-first AI assistant layer that lives **on your Linux desktop** — not in the cloud. It bridges your terminal, filesystem, window manager, and local LLMs into a single context-aware system that understands what you're doing and helps you do it better.
+| Signal                 | What it shows                                                                                                                                                                           |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **End-to-end system**  | Built a Linux-native AI desktop layer combining Python backend services, Electron/React UI, Ollama local models, ARIA agent runtime, terminal intelligence, and context/memory systems. |
+| **AI infrastructure**  | Designed local model runtime integration, local services, context pipelines, and backend-driven UI state.                                                                               |
+| **Agentic safety**     | Built a bounded assistant with tool allowlists, risk tiers, privacy checks, and approval-required actions.                                                                              |
+| **Release discipline** | Implemented release-focused testing across quick, full, e2e, chaos, soak, security, and gate validation flows.                                                                          |
+| **Relevant roles**     | AI infrastructure, ML systems design, local AI runtimes, agentic systems, developer tooling, Linux services.                                                                            |
+
+---
+
+## ⚡ Overview
+
+**Anion** is a privacy-first AI assistant layer built for the Linux desktop.
+
+It connects local model inference, terminal intelligence, desktop context, workspace awareness, memory, and a real-time desktop shell into one local-first AI system.
+
+Most AI assistants live in a browser tab. Anion is designed to live beside the operating system.
+
+It can understand the current desktop workflow, reason over local context, assist through ARIA, and surface useful automation while keeping sensitive actions bounded by guardrails and approval flows.
+
+---
+
+## 🖼️ Product Preview
+
+<p align="center">
+  <img src="./assets/screenshots/CONTROLPLANE.png" alt="Anion control plane dashboard" width="900" />
+</p>
+
+<p align="center">
+  <em>Anion control plane showing local AI state, system context, and runtime status.</em>
+</p>
+
+---
+
+## 🧩 What I Built
 
 <table>
 <tr>
-<td width="50%">
+<td width="50%" valign="top">
 
-**Unlike cloud AI wrappers, Anion:**
-- Runs 100% on your machine via [Ollama](https://ollama.ai)
-- Never phones home or collects telemetry
-- Manages services through systemd
-- Streams real-time state to a desktop shell
-- Encrypts cross-device sync end-to-end
+### 🧠 AI Runtime Layer
+
+* Local model integration through Ollama
+* ARIA bounded agent loop
+* Tool allowlists and risk tiers
+* Approval-required action flow
+* Privacy redaction before sensitive routing
 
 </td>
-<td width="50%">
+<td width="50%" valign="top">
 
-**Built as a complete system:**
-- Python backend daemon architecture
-- Electron/React desktop shell
-- 22-tool agentic assistant (ARIA)
-- Terminal intelligence with risk preview
-- 742+ tests including chaos & 24hr soak
+### 🖥️ Linux Desktop Layer
+
+* systemd user services
+* FUSE semantic filesystem layer
+* X11 / Sway / i3 workspace awareness
+* Local HTTP/SSE state bridge
+* Electron/React desktop shell
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🧪 Reliability Layer
+
+* 742+ tests
+* quick / full / e2e / chaos / soak / gate scopes
+* Bandit, pip-audit, DAST, and secret scanning
+* Release-candidate validation workflow
+
+</td>
+<td width="50%" valign="top">
+
+### 🔐 Privacy + Safety Layer
+
+* Local-first design
+* Local memory and context storage
+* Guardrailed ARIA tools
+* Explicit approvals
+* Encrypted cross-device sync path
 
 </td>
 </tr>
 </table>
 
-<br />
+---
 
-## 🏗️ Architecture
+## 🏗️ Architecture Overview
 
 ```mermaid
 flowchart TD
     A[Linux Desktop] --> B[systemd User Services]
     B --> C[Anion Python Backend]
-    C --> D[Context Engine]
-    C --> E[Memory Layer — SQLite WAL]
-    C --> F[ARIA Agent — ReAct Loop]
-    C --> G[Terminal Intelligence]
-    F --> H[Tool Allowlist + Guardrails]
-    C --> I[HTTP/SSE Bridge — 127.0.0.1:9120]
-    I --> J[Electron/React Shell + Three.js]
-    C --> K[Ollama — Local LLM Inference]
 
-    style A fill:#1e293b,stroke:#00D1FF,color:#fff
-    style C fill:#1e293b,stroke:#8B5CF6,color:#fff
-    style F fill:#1e293b,stroke:#F59E0B,color:#fff
-    style J fill:#1e293b,stroke:#10B981,color:#fff
-    style K fill:#1e293b,stroke:#EC4899,color:#fff
+    C --> D[Context Engine]
+    C --> E[Memory Layer<br/>SQLite / WAL]
+    C --> F[ARIA Agent<br/>Bounded ReAct Loop]
+    C --> G[Terminal Intelligence]
+    C --> K[Ollama<br/>Local LLM Runtime]
+
+    F --> H[Tool Allowlist<br/>Guardrails<br/>Risk Tiers]
+
+    C --> I[Local HTTP / SSE Bridge<br/>127.0.0.1:9120]
+    I --> J[Electron / React Shell]
+
+    C --> L[Cross-Device Sync]
+    L --> M[Pairing + Encrypted Channel]
+
+    style A fill:#020617,stroke:#00D1FF,color:#fff
+    style C fill:#111827,stroke:#8B5CF6,color:#fff
+    style F fill:#111827,stroke:#F59E0B,color:#fff
+    style I fill:#111827,stroke:#06B6D4,color:#fff
+    style J fill:#111827,stroke:#10B981,color:#fff
+    style K fill:#111827,stroke:#EC4899,color:#fff
 ```
 
-<details>
-<summary><strong>📐 Architecture at a glance</strong></summary>
+### Design principle
 
-<br />
+> The backend is active.
+> The frontend is a live renderer.
 
-| Layer | Technology | Role |
-|:---:|:---|:---|
-| 🔧 | systemd user targets | Daemon orchestration & lifecycle |
-| 🐍 | Python 3.11+ | Core backend: context, memory, ARIA |
-| 📡 | HTTP REST + SSE | Real-time state streaming to UI |
-| 🖥️ | Electron + React + Vite | Desktop shell (pure display layer) |
-| 🤖 | Ollama (local) | Privacy-preserving LLM inference |
-| 💾 | SQLite (WAL mode) | Persistent memory & semantic search |
-| 🔐 | NaCl / Curve25519 | Cross-device E2E encryption |
+The Electron shell does not own the core intelligence. It reflects backend state streamed through the local HTTP/SSE bridge. This keeps orchestration, memory, tool execution, and guardrails in the Python backend instead of scattering logic across the UI.
 
-The frontend is intentionally "dumb" — it contains zero business logic. All state flows from the Python backend via SSE. If the UI crashes, no data is lost.
+---
 
-</details>
+## 🗺️ Architecture Map
 
-<br />
+This repository includes standalone Mermaid diagrams for recruiter-friendly technical review.
+
+| Diagram                                                                            | What it explains                                           |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [`architecture-overview.mmd`](assets/diagrams/architecture-overview.mmd)           | Full system architecture and service boundaries            |
+| [`aria-agent-flow.mmd`](assets/diagrams/aria-agent-flow.mmd)                       | ARIA request → reasoning → guardrail → tool flow           |
+| [`context-memory-flow.mmd`](assets/diagrams/context-memory-flow.mmd)               | Desktop, terminal, file, and memory data flow              |
+| [`cross-device-sync-flow.mmd`](assets/diagrams/cross-device-sync-flow.mmd)         | LAN discovery, pairing, encryption, and resume flow        |
+| [`terminal-intelligence-flow.mmd`](assets/diagrams/terminal-intelligence-flow.mmd) | Command execution, risk preview, and recovery              |
+| [`testing-pipeline.mmd`](assets/diagrams/testing-pipeline.mmd)                     | Test harness, security scans, and release gate             |
+| [`privacy-boundary.mmd`](assets/diagrams/privacy-boundary.mmd)                     | Local-first privacy boundary and external-service controls |
+
+See [`assets/diagrams/README.md`](assets/diagrams/README.md) for rendering notes.
+
+---
+
+## 🤖 ARIA Agent Flow
+
+ARIA is Anion’s bounded agentic assistant. It can reason through tasks and use approved tools, but it does not get unrestricted shell access.
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant UI as Anion Shell
+    participant A as ARIA Agent
+    participant P as Privacy Redactor
+    participant G as Guardrails
+    participant O as Ollama
+    participant T as Approved Tool
+
+    U->>UI: Ask request
+    UI->>A: Prompt + context
+    A->>P: Check sensitive content
+    P-->>A: Safe / redacted / local-only
+    A->>O: Reason over task
+    O-->>A: Plan or tool proposal
+    A->>G: Validate tool + risk tier
+    alt Safe tool
+        G-->>A: Allowed
+        A->>T: Execute approved tool
+        T-->>A: Tool result
+        A-->>UI: Final response
+    else Sensitive action
+        G-->>A: Approval required
+        A-->>UI: Ask user for approval
+    end
+```
+
+Read more: [`docs/ARIA_AGENT.md`](docs/ARIA_AGENT.md)
+
+---
+
+## 🧠 Context + Memory Flow
+
+Anion is context-aware because it listens to real Linux workflow signals.
+
+```mermaid
+flowchart TD
+    A[Active Window / Workspace] --> D[Context Engine]
+    B[Terminal Activity] --> D
+    C[File Events / Pinned Files] --> D
+    D --> E[Local Memory Store]
+    E --> F[Semantic Context Retrieval]
+    F --> G[ARIA Assistant]
+    D --> H[Anion Shell]
+    E --> H
+
+    style D fill:#111827,stroke:#06B6D4,color:#fff
+    style E fill:#111827,stroke:#8B5CF6,color:#fff
+    style G fill:#111827,stroke:#F59E0B,color:#fff
+```
+
+Read more: [`docs/CONTEXT_AND_MEMORY.md`](docs/CONTEXT_AND_MEMORY.md)
+
+---
+
+## 🖥️ Terminal Intelligence Flow
+
+Anion’s terminal layer is designed for developer workflows: history, recovery, and risk previews.
+
+```mermaid
+flowchart TD
+    A[User enters command] --> B[Terminal Wrapper]
+    B --> C{Risk preview}
+    C -->|Safe| D[Execute command]
+    C -->|Risky| E[Require confirmation]
+    E -->|Approved| D
+    E -->|Rejected| F[Cancel execution]
+    D --> G{Command failed?}
+    G -->|No| H[Store history]
+    G -->|Yes| I[Recovery Engine]
+    I --> J[Rule-based fix or LLM suggestion]
+    J --> H
+
+    style C fill:#111827,stroke:#F59E0B,color:#fff
+    style E fill:#111827,stroke:#EF4444,color:#fff
+    style I fill:#111827,stroke:#06B6D4,color:#fff
+```
+
+Read more: [`docs/TERMINAL_INTELLIGENCE.md`](docs/TERMINAL_INTELLIGENCE.md)
+
+---
+
+## 🔄 Cross-Device Sync Flow
+
+Anion supports local-network context handoff between Linux machines.
+
+```mermaid
+flowchart LR
+    A[Linux Device A] --> B[LAN Discovery]
+    C[Linux Device B] --> B
+    B --> D[Pairing Flow]
+    D --> E[PIN Verification]
+    E --> F[Encrypted Channel]
+    F --> G[Context Sync]
+    G --> H[Resume Work]
+
+    style B fill:#111827,stroke:#06B6D4,color:#fff
+    style E fill:#111827,stroke:#F59E0B,color:#fff
+    style F fill:#111827,stroke:#10B981,color:#fff
+```
+
+Read more: [`docs/CROSS_DEVICE_SYNC.md`](docs/CROSS_DEVICE_SYNC.md)
+
+---
 
 ## ✨ Key Features
 
@@ -115,252 +302,416 @@ The frontend is intentionally "dumb" — it contains zero business logic. All st
 <tr>
 <td width="50%" valign="top">
 
-### 🤖 ARIA — Agentic Assistant
-ReAct-based agent with **22 strictly defined tools**, privacy redaction, risk tiers, and hard budget limits. Cannot run arbitrary commands — halts for approval on sensitive actions.
+### 🤖 ARIA Assistant
 
-### 🖥️ Terminal Intelligence
-SQLite-backed persistent history, deterministic risk previews (catches `rm -rf` before execution), and hybrid rule-based/LLM recovery for errors like `ModuleNotFoundError`.
+A bounded agentic assistant with tool schemas, risk tiers, privacy checks, and approval-required actions.
 
-### 🧠 Context & Memory
-Continuously indexes active windows, terminal ops, and file events into local SQLite with FTS5. Powers queries like *"what was I working on?"*
+**Highlights**
+
+* ReAct-style reasoning loop
+* Tool allowlist
+* Risk-tier validation
+* Pinned file context
+* Local model support
 
 </td>
 <td width="50%" valign="top">
 
+### 🖥️ Terminal Intelligence
+
+A safer terminal workflow with persistent history, deterministic risk preview, and common-error recovery.
+
+**Highlights**
+
+* Command history
+* `ModuleNotFoundError` style recovery
+* Destructive-command preview
+* Beginner / power mode behavior
+* Local model integration
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🧠 Context + Memory
+
+A local context layer that collects workflow signals and makes them useful to ARIA.
+
+**Highlights**
+
+* Active workspace awareness
+* Pinned file context
+* Local memory storage
+* Semantic retrieval path
+* Real-time UI state
+
+</td>
+<td width="50%" valign="top">
+
+### 🔐 Privacy + Guardrails
+
+Anion is designed around local-first execution and explicit control over sensitive actions.
+
+**Highlights**
+
+* Ollama-ready local inference
+* Local HTTP/SSE bridge
+* Guardrailed tools
+* Approval prompts
+* No unrestricted shell execution
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
 ### 🔄 Cross-Device Sync
-UDP LAN discovery → 6-digit PIN pairing → NaCl Curve25519 E2E encrypted channels. Zero cloud dependency for sync.
 
-### 🧬 Live Neural Brain
-Three.js holographic visualization that pulses with real-time system load and backend health metrics.
+A private-beta sync flow for continuing context across Linux machines.
 
-### 🔒 Privacy & Guardrails
-`PrivacyRedactor` screens prompts before cloud routing. `TOOL_ALLOWLIST` + `RISK_TIERS` gate every action. RLIMIT sandbox for plugins.
+**Highlights**
+
+* LAN discovery
+* Pairing flow
+* Encrypted channel
+* Resume context
+* Conflict handling path
+
+</td>
+<td width="50%" valign="top">
+
+### 🧬 Live Desktop Shell
+
+Electron/React shell that visualizes Anion state through a real-time backend stream.
+
+**Highlights**
+
+* ARIA dashboard
+* Live neural brain visual
+* Backend health state
+* System status cards
+* Passive UI / active backend split
 
 </td>
 </tr>
 </table>
 
-<details>
-<summary><strong>🎯 More features...</strong></summary>
+---
 
+## 🖥️ Interface Gallery
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/ARIA.png" alt="ARIA assistant" />
 <br />
-
-- **Feature Activation Engine** — Context-aware UI nudges with dynamic policy refinement
-- **FUSE Semantic Filesystem** — Virtual `~/semantic/` directory with AI-categorized views
-- **Ambient Presence Bar** — Lightweight top-bar showing live system state
-- **Dynamic Continuity Context** — Unfinished work tracking and triage suggestions
-- **Conflict Resolution Modal** — 3-way merge UI for cross-device state collisions
-- **Pinned Files Context** — Attach local files to LLM context for targeted queries
-- **Unified Semantic Ranking** — 7-factor scoring engine for search relevance
-
-See the full [Feature Breakdown →](docs/FEATURE_BREAKDOWN.md)
-
-</details>
-
+<strong>ARIA Assistant</strong>
 <br />
+Bounded agentic assistant for local Linux workflows.
+</td>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/BRAIN.png" alt="Anion brain visualization" />
+<br />
+<strong>Live System Brain</strong>
+<br />
+Visual runtime layer for context, memory, and local AI state.
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/MODELHUB.png" alt="Anion model hub" />
+<br />
+<strong>Model Hub</strong>
+<br />
+Local model management and Ollama-ready workflows.
+</td>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/SMARTHUB.png" alt="Anion smart hub" />
+<br />
+<strong>Smart Hub</strong>
+<br />
+Workflow intelligence, suggestions, and system-level assistance.
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/CONTROL.png" alt="Anion control view" />
+<br />
+<strong>Control View</strong>
+<br />
+System controls, diagnostics, and runtime visibility.
+</td>
+<td width="50%" valign="top">
+<img src="./assets/screenshots/EXPLORE.png" alt="Anion explore view" />
+<br />
+<strong>Explore</strong>
+<br />
+Context exploration across workspace, memory, and local activity.
+</td>
+</tr>
+</table>
+
+---
 
 ## 🛠️ Tech Stack
 
-<div align="center">
+| Layer               | Technology                                       |
+| ------------------- | ------------------------------------------------ |
+| Backend             | Python 3.11+, local daemons, SQLite/WAL          |
+| Frontend            | Electron, React, Vite, Three.js                  |
+| AI Runtime          | Ollama local models                              |
+| Agent Layer         | ARIA, bounded ReAct loop, tool allowlists        |
+| Desktop Integration | systemd, FUSE, X11, Sway, i3                     |
+| Terminal            | command wrapper, history, recovery, risk preview |
+| Sync                | LAN discovery, pairing, encrypted channel        |
+| Testing             | pytest, e2e, chaos, soak, gate tests             |
+| Security Review     | Bandit, pip-audit, DAST, secret scanning         |
+| Packaging           | AppImage / `.deb` Linux packaging                |
 
-| | Component | Technology |
-|:---:|:---|:---|
-| 🐍 | **Backend** | Python 3.11+, SQLite (WAL), FUSE |
-| ⚛️ | **Frontend** | Electron 33, React 19, Vite 8, Three.js, Framer Motion |
-| 🤖 | **AI** | Ollama (local inference) |
-| ⚙️ | **Services** | systemd user targets and services |
-| 🖥️ | **Desktop** | wmctrl, xdotool, swaymsg, i3-msg |
-| 🔐 | **Crypto** | NaCl / Curve25519 (PyNaCl) |
-| 🧪 | **Testing** | pytest (742+), Bandit, pip-audit, custom DAST |
-| 📦 | **Packaging** | Electron-Builder (AppImage + .deb) |
+---
 
-</div>
+## 🧪 Testing Pipeline
 
-<br />
+```mermaid
+flowchart TD
+    A[Code / Release Candidate] --> B[quick]
+    B --> C[full]
+    C --> D[e2e]
+    D --> E[chaos]
+    E --> F[soak]
+    F --> G[security scans]
+    G --> H[gate]
+    H --> I{Release status}
+    I -->|Pass| J[Beta candidate]
+    I -->|Fail| K[Blocked / Fix required]
 
-## 🧪 Testing & Security
+    style H fill:#111827,stroke:#06B6D4,color:#fff
+    style J fill:#052e16,stroke:#22C55E,color:#fff
+    style K fill:#450a0a,stroke:#EF4444,color:#fff
+```
 
-<table>
-<tr>
-<td width="55%" valign="top">
+### Test scopes
 
-**Test harness scopes:**
+| Scope   | Purpose                          |
+| ------- | -------------------------------- |
+| `quick` | Fast smoke checks                |
+| `full`  | Main regression suite            |
+| `e2e`   | End-to-end workflow validation   |
+| `chaos` | Degraded-state and fault testing |
+| `soak`  | Long-running stability checks    |
+| `gate`  | Release-readiness validation     |
 
-| Scope | Purpose |
-|:---|:---|
-| `quick` | Smoke checks (< 2 min) |
-| `full` | Full regression suite |
-| `e2e` | End-to-end validation |
-| `chaos` | Failure-state testing |
-| `soak` | 24-hour stability |
-| `gate` | Release readiness |
+### Security review snapshot
 
-</td>
-<td width="45%" valign="top">
+| Area                 | Public status                                         |
+| -------------------- | ----------------------------------------------------- |
+| Secret scanning      | No public secrets included in this documentation repo |
+| DAST                 | Included in release validation notes                  |
+| Bandit               | Findings tracked during hardening                     |
+| pip-audit            | Dependency findings tracked during hardening          |
+| Packaging validation | In progress for beta distribution                     |
 
-**Security scanning:**
+Read more: [`docs/TESTING_AND_QA.md`](docs/TESTING_AND_QA.md)
 
-| Tool | Result |
-|:---|:---|
-| Secret scan | ✅ **0 findings** / 24,700 files |
-| DAST | ✅ **Clean** (15 probes) |
-| SAST (Bandit) | ⚠️ 9 HIGH (under audit) |
-| SCA (pip-audit) | ⚠️ 65 CVEs (dev-only) |
+---
 
-</td>
-</tr>
-</table>
+## 🔐 Privacy Boundary
 
-<br />
+```mermaid
+flowchart TD
+    A[User Desktop] --> B[Local Anion Services]
+    B --> C[Local Memory]
+    B --> D[Ollama Local Models]
+    B --> E[ARIA Tool Guardrails]
+    E --> F{Sensitive action?}
+    F -->|No| G[Approved local action]
+    F -->|Yes| H[User approval required]
+
+    B -. optional if configured .-> I[External Services]
+
+    style A fill:#020617,stroke:#06B6D4,color:#fff
+    style B fill:#111827,stroke:#8B5CF6,color:#fff
+    style C fill:#111827,stroke:#10B981,color:#fff
+    style H fill:#111827,stroke:#F59E0B,color:#fff
+    style I fill:#111827,stroke:#EF4444,color:#fff
+```
+
+Anion is designed to keep workflows local by default. External services, if supported in a beta build, should be explicitly configured and documented.
+
+Read more: [`PRIVACY.md`](PRIVACY.md)
+
+---
 
 ## 🧩 Why This Was Technically Interesting
 
-<table>
-<tr>
-<td>🔩</td>
-<td><strong>Deep OS integration</strong> — Hooks into systemd, FUSE, Sway/i3 IPC, X11 for genuine desktop awareness</td>
-</tr>
-<tr>
-<td>🎯</td>
-<td><strong>Bounded agentic AI</strong> — Real ReAct agent with strict guardrails: allowlists, risk tiers, budget limits, approval gates</td>
-</tr>
-<tr>
-<td>📡</td>
-<td><strong>Real-time architecture</strong> — Backend pushes all state via SSE; UI is a pure renderer with zero business logic</td>
-</tr>
-<tr>
-<td>🔐</td>
-<td><strong>Custom crypto protocol</strong> — Raw UDP discovery + NaCl encryption for cloud-free cross-device sync</td>
-</tr>
-<tr>
-<td>🧪</td>
-<td><strong>Production testing</strong> — 742+ tests, chaos testing, 24hr soak, SAST/SCA/DAST integrated into release gate</td>
-</tr>
-</table>
+| Challenge             | What made it hard                                                    |
+| --------------------- | -------------------------------------------------------------------- |
+| Linux desktop context | Needed real OS signals through systemd, FUSE, X11, Sway, and i3      |
+| Agentic safety        | ARIA had to act through bounded tools, risk tiers, and approvals     |
+| Real-time state       | UI needed live backend state without becoming the source of truth    |
+| Terminal recovery     | Needed deterministic safety checks plus useful recovery suggestions  |
+| Local memory          | Needed useful context without making cloud AI the default dependency |
+| Cross-device sync     | Needed pairing, encrypted state handoff, and conflict handling       |
+| Release validation    | Needed quick, full, e2e, chaos, soak, security, and gate checks      |
 
-<br />
+---
 
 ## 📋 Product Status
 
 <div align="center">
 
-```
-┌─────────────────────────────────────────────────────┐
-│   Anion v0.1.0 — Release Candidate (Private Beta)   │
-│                                                     │
-│   ✅ Feature-complete for intended scope             │
-│   🔄 Dependency CVE remediation                     │
-│   🔄 Subprocess security audit                      │
-│   🔄 Packaging validation                           │
-│   🔄 Public documentation finalization              │
-│                                                     │
-│   ⚠️  Beta software — expect rough edges             │
-└─────────────────────────────────────────────────────┘
+```text
+┌─────────────────────────────────────────────────────────────┐
+│          Anion v0.1.0 — Release Candidate / Beta             │
+├─────────────────────────────────────────────────────────────┤
+│  ✅ Feature-complete for current Linux-only scope             │
+│  🔄 Dependency CVE remediation                               │
+│  🔄 Subprocess security audit                                │
+│  🔄 Packaging validation                                     │
+│  🔄 Public documentation cleanup                             │
+│                                                             │
+│  ⚠️  Beta software — intended for Linux power users           │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 </div>
 
-<br />
+---
 
-## 🔐 Why the Source Is Private
+## 🔒 Why the Source Is Private
 
-| Reason | Detail |
-|:---|:---|
-| Security hardening | Known subprocess findings and dependency CVEs need resolution before public exposure |
-| Beta stability | Feature-complete but not consumer-ready |
-| Responsible disclosure | Opening source prematurely could expose attack surface before mitigations |
+The Anion source code is private during beta because the project includes security-sensitive local automation logic, Linux desktop integration code, packaging scripts, and hardening work that should be resolved before broader exposure.
 
-**The plan:** Open-source Anion after security cleanup is complete.
+| Reason             | Detail                                                                                          |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| Security hardening | Known dependency and subprocess findings are tracked before public code release                 |
+| Beta stability     | The product is feature-complete for scope but still undergoing packaging and release validation |
+| User safety        | Local automation and desktop integration require careful review before open distribution        |
+| Licensing          | Source availability will be revisited after security cleanup and licensing decisions            |
 
-<br />
+> Source availability will be revisited after security cleanup, packaging validation, and licensing decisions are complete.
+
+---
 
 ## 📚 Documentation
 
 <table>
 <tr>
-<td valign="top" width="50%">
+<td width="50%" valign="top">
 
-**Architecture & Design**
-- [Architecture](docs/ARCHITECTURE.md) — System topology & services
-- [System Design](docs/SYSTEM_DESIGN.md) — Decisions & tradeoffs
-- [Product Decisions](docs/PRODUCT_DECISIONS.md) — Why Linux-only, why local-first
+### Architecture + Design
 
-**Features**
-- [Feature Breakdown](docs/FEATURE_BREAKDOWN.md) — Complete inventory
-- [ARIA Agent](docs/ARIA_AGENT.md) — Agentic assistant deep dive
-- [Terminal Intelligence](docs/TERMINAL_INTELLIGENCE.md) — CLI safety & recovery
-- [Context & Memory](docs/CONTEXT_AND_MEMORY.md) — Memory engine
-- [Cross-Device Sync](docs/CROSS_DEVICE_SYNC.md) — E2E encrypted sync
+* [Architecture](docs/ARCHITECTURE.md)
+* [System Design](docs/SYSTEM_DESIGN.md)
+* [Product Decisions](docs/PRODUCT_DECISIONS.md)
+* [Feature Breakdown](docs/FEATURE_BREAKDOWN.md)
+
+### Core Systems
+
+* [ARIA Agent](docs/ARIA_AGENT.md)
+* [Terminal Intelligence](docs/TERMINAL_INTELLIGENCE.md)
+* [Context and Memory](docs/CONTEXT_AND_MEMORY.md)
+* [Cross-Device Sync](docs/CROSS_DEVICE_SYNC.md)
 
 </td>
-<td valign="top" width="50%">
+<td width="50%" valign="top">
 
-**Operations & Quality**
-- [Testing & QA](docs/TESTING_AND_QA.md) — Test philosophy & scanning
-- [Release Notes](docs/RELEASE_NOTES.md) — v1 RC summary
-- [Roadmap](docs/ROADMAP.md) — Future priorities
+### Operations + Quality
 
-**User Guides**
-- [Install Guide](docs/INSTALL_LINUX.md) — Linux installation
-- [User Manual](docs/USER_MANUAL.md) — End-user guide
-- [FAQ](docs/FAQ.md) — Common questions
+* [Testing and QA](docs/TESTING_AND_QA.md)
+* [Release Notes](docs/RELEASE_NOTES.md)
+* [Roadmap](docs/ROADMAP.md)
+* [Changelog](CHANGELOG.md)
+
+### User Docs
+
+* [Install Linux](docs/INSTALL_LINUX.md)
+* [User Manual](docs/USER_MANUAL.md)
+* [FAQ](docs/FAQ.md)
+* [Privacy](PRIVACY.md)
+* [Terms](TERMS.md)
+* [Security](SECURITY.md)
 
 </td>
 </tr>
 </table>
 
-<br />
+---
 
 ## 🚀 Early Beta
 
 <div align="center">
 
-**Anion is in private beta.**
+### Anion is currently in private beta.
 
-[Request Beta Access](https://forms.gle/PLACEHOLDER) <!-- TODO: Replace with actual form link -->
+Early beta is intended for Linux users, developers, terminal-heavy users, local AI users, and people comfortable testing release-candidate software.
 
-Beta access can be revoked at any time. Report issues via [GitHub issue templates](.github/ISSUE_TEMPLATE/).
+<br />
+
+<a href="YOUR_REAL_BETA_FORM_LINK">
+  <strong>Request Beta Access →</strong>
+</a>
+
+<br />
+<br />
+
+Selected testers will receive installation instructions and beta access details by email.
 
 </div>
 
-<br />
+---
 
 ## 👤 My Role
 
-I am the **sole developer and architect** of Anion. Designed and implemented from scratch:
+I designed and built Anion end-to-end.
 
 <table>
 <tr>
-<td>🐍 Full Python backend</td>
-<td>Daemon services, HTTP bridge, memory engine, context system</td>
+<td width="35%"><strong>Backend architecture</strong></td>
+<td>Python services, daemon orchestration, local HTTP/SSE bridge, memory and context systems</td>
 </tr>
 <tr>
-<td>🤖 ARIA agent</td>
-<td>ReAct loop, tool schemas, guardrails, privacy redaction</td>
+<td><strong>ARIA assistant</strong></td>
+<td>Agent loop, tool schemas, guardrails, privacy redaction, risk tiers, approval flows</td>
 </tr>
 <tr>
-<td>⚛️ Desktop shell</td>
-<td>Electron/React UI, Three.js Brain, SSE integration</td>
+<td><strong>Desktop shell</strong></td>
+<td>Electron/React interface, live dashboard, neural brain visualization, backend state integration</td>
 </tr>
 <tr>
-<td>🖥️ Terminal intelligence</td>
-<td>History, recovery engine, risk preview</td>
+<td><strong>Terminal intelligence</strong></td>
+<td>Persistent history, recovery engine, destructive-command risk preview</td>
 </tr>
 <tr>
-<td>🔐 Sync protocol</td>
-<td>UDP discovery, NaCl Curve25519 E2E encryption</td>
+<td><strong>Sync system</strong></td>
+<td>Pairing flow, encrypted context handoff, conflict handling path</td>
 </tr>
 <tr>
-<td>🧪 Test harness</td>
-<td>742+ tests, chaos, soak, SAST/SCA/DAST</td>
-</tr>
-<tr>
-<td>⚙️ Infrastructure</td>
-<td>systemd services, packaging pipeline</td>
+<td><strong>Testing and release</strong></td>
+<td>Test harness, security scans, soak tests, gate checks, release documentation</td>
 </tr>
 </table>
 
-<br />
+---
+
+## 🧭 Repository Purpose
+
+This repo is for:
+
+* public architecture documentation,
+* product and feature explanation,
+* recruiter/reviewer visibility,
+* beta access information,
+* diagrams and release notes,
+* public issue/feedback collection.
+
+This repo is not:
+
+* the production source repository,
+* an open-source codebase,
+* a package registry,
+* a public installer mirror.
 
 ---
 
@@ -368,11 +719,24 @@ I am the **sole developer and architect** of Anion. Designed and implemented fro
 
 <br />
 
-**[GitHub](https://github.com/GopalSinghRajput)** · **[Architecture Docs](docs/ARCHITECTURE.md)** · **[Roadmap](docs/ROADMAP.md)**
+## Anion
+
+**A local AI operating layer for the Linux desktop.**
 
 <br />
 
-<sub>Built with care by <a href="https://github.com/GopalSinghRajput">Gopal Singh Rajput</a> 🇮🇳</sub>
+[GitHub](https://github.com/GopalSinghRajput)
+·
+[Architecture Docs](docs/ARCHITECTURE.md)
+·
+[Roadmap](docs/ROADMAP.md)
+·
+[Beta Access](YOUR_REAL_BETA_FORM_LINK)
+
+<br />
+<br />
+
+<sub>Built by <a href="https://github.com/GopalSinghRajput">Gopal Singh Rajput</a></sub>
 
 <br />
 
